@@ -8,8 +8,8 @@
   </head>
 <body>
 <div class="row">
-    <div class="col-3">
-        <div class="card border-secondary-emphasis mb-3" style="height: 100%">
+    <div class="col-3 vh-100">
+        <div class="card border-secondary-emphasis mb-3 h-100">
             <div class="card-header text-light bg-black border-light">
                 <h2 class="text-center">Меню</h2>
             </div>
@@ -39,28 +39,30 @@
             Контакты
         </h2>
         <div class="row">
-            <div class="col-6">
-                <div class="border" style="padding: 10px">
-                    <div class="mb-3">
-                        <label class="form-label">Имя</label>
-                        <input type="text" class="form-control">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="col-6">
+                    <div class="border" style="padding: 10px">
+                        <div class="mb-3">
+                            <label class="form-label">Имя</label>
+                            <input type="text" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Почта</label>
+                            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleFormControlTextarea1" class="form-label">Сообщение</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Отправить</button>
                     </div>
-                    <div class="mb-3">
-                        <label for="exampleFormControlInput1" class="form-label">Почта</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-                    </div>
-                    <div class="mb-3">
-                        <label for="exampleFormControlTextarea1" class="form-label">Сообщение</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-                    </div>
-                    <button type="button" class="btn btn-primary">Отправить</button>
                 </div>
-            </div>
-            <div class="col-6">
-                <h4>Наши контакты</h4>
-                Много текста.....
-            </div>
-
+                <div class="col-6">
+                    <h4>Наши контакты</h4>
+                    Много текста.....
+                </div>
+            </form>
         </div>
     </div>
 </div>
