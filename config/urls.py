@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 """
 URL configuration for config project.
@@ -18,11 +20,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.contrib import admin
-from django.urls import path
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("my_app/", include('my_app.urls', namespace='my_app')),
     #path("my_app/", include('my_app.urls', namespace='my_app')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, documet_root=settings.MEDIA_ROOT)
