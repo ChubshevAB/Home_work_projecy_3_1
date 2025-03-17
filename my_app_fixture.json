@@ -1,0 +1,78 @@
+[
+{
+    "model": "my_app.category",
+    "pk": 1,
+    "fields": {
+        "name": "Электроника",
+        "description": "Смартфоны, планшеты, ноутбуки, ПК"
+    }
+},
+{
+    "model": "my_app.category",
+    "pk": 2,
+    "fields": {
+        "name": "Все для дачи",
+        "description": "Лопаты, вилы, грабли, мангалы, тримеры и т.д."
+    }
+},
+{
+    "model": "my_app.category",
+    "pk": 3,
+    "fields": {
+        "name": "Спорт",
+        "description": "Гантели, гири, лыжи, коньки"
+    }
+},
+{
+    "model": "my_app.product",
+    "pk": 2,
+    "fields": {
+        "name": "Samsung Galaxy S12",
+        "description": null,
+        "image": "",
+        "category": 1,
+        "price": 120000,
+        "created_at": "2025-03-13",
+        "updated_at": "2025-03-13"
+    }
+},
+{
+    "model": "my_app.product",
+    "pk": 3,
+    "fields": {
+        "name": "Nokia 4310",
+        "description": null,
+        "image": "",
+        "category": 1,
+        "price": 1000,
+        "created_at": "2025-03-13",
+        "updated_at": "2025-03-13"
+    }
+},
+{
+    "model": "my_app.product",
+    "pk": 4,
+    "fields": {
+        "name": "Лопата ручная - Прощай спина 3000",
+        "description": null,
+        "image": "",
+        "category": 2,
+        "price": 1500,
+        "created_at": "2025-03-13",
+        "updated_at": "2025-03-13"
+    }
+},
+{
+    "model": "my_app.product",
+    "pk": 5,
+    "fields": {
+        "name": "Коньки хоккейные",
+        "description": null,
+        "image": "",
+        "category": 3,
+        "price": 9000,
+        "created_at": "2025-03-13",
+        "updated_at": "2025-03-13"
+    }
+}
+]

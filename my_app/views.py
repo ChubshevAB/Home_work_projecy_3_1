@@ -13,3 +13,11 @@ def contacts(request):
 
         return HttpResponse(f'Спасибо, {name}! Ваше сообщение получено.')
     return render(request, 'my_app/contacts.html')
+
+
+def catalog(request):
+    return render(request, 'my_app/catalog.html')
+
+
+def start_page(request):
+    return render(request, 'my_app/base.html')

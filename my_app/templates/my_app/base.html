@@ -1,0 +1,54 @@
+{% load static %}
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}My_app: main{% endblock %}</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  </head>
+
+<body>
+<div class="row bg-dark-subtle">
+    <div class="col-3 vh-100">
+        <div class="card border-secondary-emphasis mb-3 h-100">
+            <div class="card-header text-light bg-dark border-light">
+                <h2 class="text-center">Меню</h2>
+            </div>
+            <div class="card-body bg-dark text-light fs-3">
+                <a href="main_page">Каталог</a><br>
+                <a href="#">Категории</a><br>
+                <a href="#">Заказы</a><br>
+                <a href="contacts">Контакты</a><br>
+            </div>
+            <div class="card-footer text-light bg-dark border-light">
+                <div class="dropdown">
+                    <h3 class="text-center">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Пользователь
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Профиль</a></li>
+                            <li><a class="dropdown-item" href="#">Вход</a></li>
+                        </ul>
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-9">
+        <h2 class="text-center">
+            Онлайн магазин
+        </h2>
+        <h4 class="text-center">
+            Добро пожаловать в мой онлайн магазин!
+        </h4>
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+</body>
+</html>
