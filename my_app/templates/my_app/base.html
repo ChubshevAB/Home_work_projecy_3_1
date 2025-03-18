@@ -17,10 +17,10 @@
                 <h2 class="text-center">Меню</h2>
             </div>
             <div class="card-body bg-dark text-light fs-3">
-                <a href="main_page">Каталог</a><br>
+                <a href="{% url 'my_app:catalog' %}">Каталог</a><br>
                 <a href="#">Категории</a><br>
                 <a href="#">Заказы</a><br>
-                <a href="contacts">Контакты</a><br>
+                <a href="{% url 'my_app:contacts' %}">Контакты</a><br>
             </div>
             <div class="card-footer text-light bg-dark border-light">
                 <div class="dropdown">
