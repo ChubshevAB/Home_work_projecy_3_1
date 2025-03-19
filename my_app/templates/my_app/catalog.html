@@ -15,7 +15,7 @@
                 <img src="{% if product.image %}{{ product.image.url }}{% else %}{{ product.name }}{% endif %}" class="img-fluid" alt="{{ product.name }}">
                 <h4 class="card-title text-center">Цена: {{ product.price }} руб.</h4>
                 <p class="card-text">Категория товаров: {{ product.category }}</p>
-                <p class="card-text">Описание товара: {{ product.description }}</p>
+                <p class="card-text">Описание товара: {{ product.description | truncatechars:100 }}</p>
                 <h6 class="text-center">
                     <button type="button" class="btn text-primary btn-light border-primary" style="width: 150px;">Посмотреть</button>
                 </h6>
