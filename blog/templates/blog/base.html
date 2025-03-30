@@ -1,0 +1,69 @@
+{% load static %}
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Blog{% endblock %}</title>
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <style>
+      .menu-btn-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px; /* Расстояние между кнопками */
+        padding: 10px;
+      }
+      .menu-btn {
+        width: 100%;
+        min-width: 200px;
+        text-align: center;
+        padding: 10px 0; /* Внутренние отступы кнопок */
+      }
+    </style>
+  </head>
+
+<body>
+<div class="row bg-dark-subtle">
+    <div class="col-3 vh-100">
+        <div class="card border-secondary-emphasis mb-3 h-100">
+            <div class="card-header text-light bg-dark border-light">
+                <h2 class="text-center">Меню</h2>
+            </div>
+            <div class="card-body bg-dark text-light fs-3">
+                <div class="menu-btn-container">
+                    <a href="{% url 'blog:start_page' %}" class="btn btn-primary menu-btn">Начальная страница</a>
+                    <a href="{% url 'blog:post_list' %}" class="btn btn-primary menu-btn">Список статей</a>
+                    <a href="{% url 'blog:post_create' %}" class="btn btn-primary menu-btn">Новая запись</a>
+                </div>
+            </div>
+            <div class="card-footer text-light bg-dark border-light">
+                <div class="dropdown">
+                    <h3 class="text-center">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Пользователь
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Профиль</a></li>
+                            <li><a class="dropdown-item" href="#">Вход</a></li>
+                        </ul>
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-9">
+        <h2 class="text-center">
+
+        </h2>
+        <h4 class="text-center">
+
+        </h4>
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+</body>
+</html>
