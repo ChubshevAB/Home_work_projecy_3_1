@@ -24,7 +24,7 @@ Including another URLconf
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("my_app/", include('my_app.urls', namespace='my_app')),
-    #path("my_app/", include('my_app.urls', namespace='my_app')),
+    path('blog/', include('blog.urls')),
 ]
 
 if settings.DEBUG:
