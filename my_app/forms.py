@@ -5,7 +5,7 @@ from my_app.models import Product
 from django.core.exceptions import ValidationError
 
 
-forbidden_words = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']
+forbidden_words = ['криптовалюта', 'казино', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']
 
 class CreateProduct(ModelForm):
     class Meta:
@@ -53,15 +53,14 @@ class CreateProduct(ModelForm):
         description = cleaned_data.get('description', '').lower()
         name = cleaned_data.get('name', '').lower()
 
-        # Проверка описания
-        found_word = next((word for word in forbidden_words if word in description), None)
-        if found_word:
-            self.add_error('description', f'В описании товара не может использоваться слово "{found_word}"')
-            return cleaned_data  # Прекращаем проверку после первого найденного слова
-
         # Проверка названия
         found_word = next((word for word in forbidden_words if word in name), None)
         if found_word:
             self.add_error('name', f'В наименовании товара не может использоваться слово "{found_word}"')
+
+        # Проверка описания
+        found_word = next((word for word in forbidden_words if word in description), None)
+        if found_word:
+            self.add_error('description', f'В описании товара не может использоваться слово "{found_word}"')
 
         return cleaned_data
