@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+
+from blog.forms import BlogPostCreate
 from blog.models import BlogPost
 from django.views.generic import ListView, DetailView, View, TemplateView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -33,14 +35,14 @@ class BlogPostDetailView(DetailView):
 
 class BlogPostCreateView(CreateView):
     model = BlogPost
-    fields = ['title', 'content', 'preview', 'is_published']
+    form_class = BlogPostCreate
     template_name = 'blog/post_form.html'
     success_url = reverse_lazy('blog:post_list')
 
 
 class BlogPostUpdateView(UpdateView):
     model = BlogPost
-    fields = ['title', 'content', 'preview', 'is_published']
+    form_class = BlogPostCreate
     template_name = 'blog/post_form.html'
 
     def get_success_url(self):

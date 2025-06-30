@@ -7,48 +7,133 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}My_app: main{% endblock %}</title>
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <style>
+      :root {
+        --primary-bg: #2c3e50;
+        --secondary-bg: #34495e;
+        --accent-color: #3498db;
+        --text-light: #ecf0f1;
+        --hover-effect: rgba(255, 255, 255, 0.1);
+      }
+
+      body {
+        background-color: #f8f9fa;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .sidebar {
+        background: linear-gradient(to bottom, var(--primary-bg), var(--secondary-bg));
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .sidebar .card {
+        border: none;
+        border-radius: 0;
+      }
+
+      .sidebar .card-header {
+        background-color: var(--primary-bg);
+        border-bottom: 1px solid var(--accent-color);
+      }
+
+      .sidebar .card-body {
+        background-color: var(--secondary-bg);
+      }
+
+      .sidebar a {
+        color: var(--text-light);
+        text-decoration: none;
+        display: block;
+        padding: 10px 15px;
+        margin: 5px 0;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+      }
+
+      .sidebar a:hover {
+        background-color: var(--hover-effect);
+        transform: translateX(5px);
+      }
+
+      .main-content {
+        padding: 20px;
+      }
+
+      .page-header {
+        background: linear-gradient(to right, var(--primary-bg), var(--accent-color));
+        color: white;
+        padding: 20px;
+        margin-bottom: 30px;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .dropdown-menu {
+        background-color: var(--secondary-bg);
+      }
+
+      .dropdown-item {
+        color: var(--text-light);
+      }
+
+      .dropdown-item:hover {
+        background-color: var(--hover-effect);
+      }
+    </style>
   </head>
 
 <body>
-<div class="row bg-dark-subtle">
-    <div class="col-3 vh-100">
-        <div class="card border-secondary-emphasis mb-3 h-100">
-            <div class="card-header text-light bg-dark border-light">
-                <h2 class="text-center">Меню</h2>
+<div class="row g-0">
+    <div class="col-md-3 col-lg-2 sidebar">
+        <div class="card h-100">
+            <div class="card-header border-light">
+                <h2 class="text-center mb-0">Меню</h2>
             </div>
-            <div class="card-body bg-dark text-light fs-3">
-                <a href="{% url 'my_app:catalog' %}">Каталог</a><br>
-                <a href="#">Категории</a><br>
-                <a href="#">Заказы</a><br>
-                <a href="{% url 'my_app:contacts' %}">Контакты</a><br>
+            <div class="card-body">
+                <nav class="nav flex-column">
+                    <a href="{% url 'my_app:catalog' %}" class="nav-link">
+                        <i class="bi bi-book me-2"></i>Каталог
+                    </a>
+                    <a href="#" class="nav-link">
+                        <i class="bi bi-tags me-2"></i>Категории
+                    </a>
+                    <a href="#" class="nav-link">
+                        <i class="bi bi-cart me-2"></i>Заказы
+                    </a>
+                    <a href="{% url 'my_app:create_product' %}" class="nav-link">
+                        <i class="bi bi-book me-2"></i>Новый товар
+                    </a>
+                    <a href="{% url 'my_app:contacts' %}" class="nav-link">
+                        <i class="bi bi-envelope me-2"></i>Контакты
+                    </a>
+                </nav>
             </div>
-            <div class="card-footer text-light bg-dark border-light">
-                <div class="dropdown">
-                    <h3 class="text-center">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Пользователь
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Профиль</a></li>
-                            <li><a class="dropdown-item" href="#">Вход</a></li>
-                        </ul>
-                    </h3>
+            <div class="card-footer border-light">
+                <div class="dropdown text-center">
+                    <button class="btn btn-outline-light dropdown-toggle w-100" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-circle me-2"></i>Пользователь
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Профиль</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-in-right me-2"></i>Вход</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-9">
-        <h2 class="text-center">
-            Онлайн магазин
-        </h2>
-        <h4 class="text-center">
-            Добро пожаловать в мой онлайн магазин!
-        </h4>
-        <div class="container">
+    <div class="col-md-9 col-lg-10 main-content">
+        <div class="page-header">
+            <h1 class="display-4">Онлайн магазин</h1>
+            <p class="lead">Добро пожаловать в мой онлайн магазин!</p>
+        </div>
+        <div class="container-fluid">
             {% block content %}{% endblock %}
         </div>
     </div>
 </div>
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
 </body>
 </html>
