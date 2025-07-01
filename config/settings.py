@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 import os
+
+from django.conf.global_settings import LOGIN_REDIRECT_URL, LOGOUT_REDIRECT_URL
 from dotenv import load_dotenv
 from pathlib import Path
 
@@ -39,6 +41,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "users",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -141,3 +144,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Путь к папке с мед
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+AUTH_USER_MODEL = 'users.User'
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'

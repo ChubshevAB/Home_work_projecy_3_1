@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import TemplateView
 
 """
 URL configuration for config project.
@@ -22,9 +23,11 @@ Including another URLconf
 
 
 urlpatterns = [
+    path("", TemplateView.as_view(template_name='my_app/base.html'), name='home'),
     path("admin/", admin.site.urls),
     path("my_app/", include('my_app.urls', namespace='my_app')),
     path('blog/', include('blog.urls')),
+    path("users/", include('users.urls', namespace='users')),
 ]
 
 if settings.DEBUG:
