@@ -27,9 +27,9 @@
     "model": "my_app.product",
     "pk": 2,
     "fields": {
-        "name": "Samsung Galaxy S12",
+        "name": "Samsung Galaxy S25",
         "description": null,
-        "image": "",
+        "image": "my_app/img/galaxy s25.jpg",
         "category": 1,
         "price": 120000,
         "created_at": "2025-03-13",
@@ -42,7 +42,7 @@
     "fields": {
         "name": "Nokia 4310",
         "description": null,
-        "image": "",
+        "image": "my_app/img/nokia4310.jpeg",
         "category": 1,
         "price": 1000,
         "created_at": "2025-03-13",
@@ -51,28 +51,28 @@
 },
 {
     "model": "my_app.product",
-    "pk": 4,
+    "pk": 6,
     "fields": {
-        "name": "Лопата ручная - Прощай спина 3000",
+        "name": "IPAD",
         "description": null,
-        "image": "",
-        "category": 2,
-        "price": 1500,
-        "created_at": "2025-03-13",
-        "updated_at": "2025-03-13"
+        "image": "my_app/img/ipad.png",
+        "category": 1,
+        "price": 190000,
+        "created_at": "2025-06-26",
+        "updated_at": "2025-06-26"
     }
 },
 {
     "model": "my_app.product",
-    "pk": 5,
+    "pk": 7,
     "fields": {
-        "name": "Коньки хоккейные",
+        "name": "IPhone 16",
         "description": null,
-        "image": "",
-        "category": 3,
-        "price": 9000,
-        "created_at": "2025-03-13",
-        "updated_at": "2025-03-13"
+        "image": "my_app/img/iphone16.jpg",
+        "category": 1,
+        "price": 190000,
+        "created_at": "2025-06-26",
+        "updated_at": "2025-06-26"
     }
 }
 ]

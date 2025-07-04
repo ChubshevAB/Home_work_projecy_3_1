@@ -1,0 +1,104 @@
+{% extends 'my_app/base.html' %}
+{% load my_tags %}
+{% load static %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+
+<div class="container py-4">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-dark text-white py-3">
+                    <h2 class="text-center mb-0">{{ product.name }}</h2>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Изображение товара -->
+                        <div class="col-md-6 mb-4 mb-md-0">
+                            <div class="product-image-container bg-light rounded p-3 d-flex align-items-center justify-content-center">
+                                <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/placeholder.png' %}{% endif %}"
+                                     class="img-fluid rounded"
+                                     alt="{{ product.name }}"
+                                     style="max-height: 350px; object-fit: contain;">
+                            </div>
+                        </div>
+
+                        <!-- Информация о товаре -->
+                        <div class="col-md-6">
+                            <div class="d-flex flex-column h-100">
+                                <!-- Цена и категория -->
+                                <div class="mb-4">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <span class="badge bg-primary fs-5 py-2 px-3 rounded-pill">
+                                            {{ product.price }} ₽
+                                        </span>
+                                        <span class="badge bg-secondary fs-6">
+                                            <i class="bi bi-tag-fill me-1"></i>{{ product.category }}
+                                        </span>
+                                    </div>
+
+                                    <!-- Описание -->
+                                    <div class="mb-4">
+                                        <h4 class="mb-3">Описание:</h4>
+                                        <p class="card-text fs-5">{{ product.description|default:"Описание отсутствует" }}</p>
+                                    </div>
+                                </div>
+
+                                <!-- Дополнительная информация -->
+                                <div class="mt-auto">
+                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                        <a href="{% url 'my_app:catalog' %}" class="btn btn-outline-secondary me-md-2">
+                                            <i class="bi bi-arrow-left me-2"></i>Вернуться в каталог
+                                        </a>
+                                        <button class="btn btn-primary">
+                                            <i class="bi bi-cart-plus me-2"></i>Добавить в корзину
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Дополнительные характеристики -->
+                <div class="card-footer bg-light">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5><i class="bi bi-upc-scan me-2"></i>Артикул: {{ product.id }}</h5>
+                        </div>
+                        <div class="col-md-6 text-md-end">
+                            <h5><i class="bi bi-calendar3 me-2"></i>Добавлен: {% if product.created_at %}{{ product.created_at|date:"d.m.Y" }}{% else %}Дата неизвестна{% endif %}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .product-image-container {
+        height: 350px;
+        border: 1px solid #dee2e6;
+        transition: all 0.3s ease;
+    }
+
+    .product-image-container:hover {
+        transform: scale(1.02);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .card {
+        border-radius: 15px;
+        overflow: hidden;
+    }
+
+    .card-header {
+        border-bottom: 2px solid var(--accent-color);
+    }
+</style>
+
+{% endblock %}

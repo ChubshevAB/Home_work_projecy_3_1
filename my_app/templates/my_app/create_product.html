@@ -1,0 +1,88 @@
+{% extends 'my_app/base.html' %}
+{% load static %}
+
+{% block title %}Добавить товар{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-dark text-white py-3">
+                    <h2 class="text-center mb-0"><i class="bi bi-plus-circle me-2"></i>Добавить новый товар</h2>
+                </div>
+
+                <div class="card-body">
+                    <!-- Сообщения об ошибках/успехе -->
+                    {% if messages %}
+                    <div class="mb-4">
+                        {% for message in messages %}
+                        <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}success{% endif %}">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <!-- Отображение всей формы как абзацев -->
+                        {{ form.as_p }}
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <a href="{% url 'my_app:catalog' %}" class="btn btn-outline-secondary me-md-2">
+                                <i class="bi bi-x-circle me-2"></i>Отмена
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-check-circle me-2"></i>Создать товар
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Стили для формы */
+    .card {
+        border-radius: 15px;
+        overflow: hidden;
+    }
+
+    .card-header {
+        border-bottom: 2px solid var(--accent-color);
+    }
+
+    /* Стили для полей формы */
+    .form-control, .form-select {
+        padding: 10px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+
+    /* Стили для текстовых областей */
+    textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    /* Стили для ошибок */
+    .errorlist {
+        color: #dc3545;
+        list-style: none;
+        padding-left: 0;
+        margin-top: 5px;
+        font-size: 0.875em;
+    }
+
+    /* Стили для меток */
+    label {
+        font-weight: 500;
+        margin-bottom: 5px;
+        display: block;
+    }
+</style>
+{% endblock %}
