@@ -30,6 +30,15 @@
                         <!-- Отображение всей формы как абзацев -->
                         {{ form.as_p }}
 
+                        <!-- Кнопка публикации -->
+                        <div class="form-check form-switch mb-4">
+                            <input class="form-check-input" type="checkbox" id="publishSwitch" name="is_published" {% if form.instance.is_published %}checked{% endif %}>
+                            <label class="form-check-label" for="publishSwitch">
+                                <i class="bi bi-globe me-2"></i>Опубликовать товар сразу
+                            </label>
+                            <small class="form-text text-muted d-block">Если включено, товар будет виден всем пользователям</small>
+                        </div>
+
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
                             <a href="{% url 'my_app:catalog' %}" class="btn btn-outline-secondary me-md-2">
                                 <i class="bi bi-x-circle me-2"></i>Отмена
@@ -83,6 +92,17 @@
         font-weight: 500;
         margin-bottom: 5px;
         display: block;
+    }
+
+    /* Стили для переключателя публикации */
+    .form-switch .form-check-input {
+        width: 3em;
+        height: 1.5em;
+        margin-right: 10px;
+    }
+
+    .form-switch .form-check-label {
+        font-size: 1.1em;
     }
 </style>
 {% endblock %}

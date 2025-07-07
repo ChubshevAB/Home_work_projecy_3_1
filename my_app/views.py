@@ -1,12 +1,31 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponse, HttpResponseForbidden
 from my_app.models import Product, Category
-from django.views.generic import ListView, DetailView, View, TemplateView, CreateView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView, DetailView, View, TemplateView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib import messages
 from .forms import CreateProduct
 
+
+class ChangeProduct(LoginRequiredMixin, View):
+    def post(self, request, product_id):
+        product = get_object_or_404(Product, id=product_id)
+
+        if 'unpublish' in request.POST:
+            if not request.user.has_perm('my_app.can_unpublish_product'):
+                return HttpResponseForbidden('У вас нет прав для отмены публикации')
+            product.is_published = False
+            product.save()
+            messages.success(request, 'Публикация товара отменена!')
+
+        elif 'delete' in request.POST:
+            if not request.user.has_perm('my_app.can_delete_product'):
+                return HttpResponseForbidden('У вас нет прав для удаления товара')
+            product.delete()
+            messages.success(request, 'Товар успешно удален!')
+
+        return redirect('my_app:catalog')
 
 class CatalogListView(LoginRequiredMixin, ListView):
     model = Product
@@ -38,6 +57,48 @@ class ContactsView(View):
         message = request.POST.get("message")
         return HttpResponse(f'Спасибо, {name}! Ваше сообщение получено.')
 
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        messages.success(self.request, 'Товар успешно создан!')
+        return super().form_valid(form)
+
 
 class StartPageView(TemplateView):
     template_name = 'my_app/base.html'
+
+
+class ProductUnpublishView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    model = Product
+    fields = ['is_published']
+    template_name = 'my_app/product_unpublish.html'
+    success_url = reverse_lazy('my_app:catalog')
+    permission_required = 'my_app.can_unpublish_product'
+    login_url = reverse_lazy('users:login')
+
+    def form_valid(self, form):
+        form.instance.is_published = False
+        messages.success(self.request, 'Публикация товара отменена!')
+        return super().form_valid(form)
+
+class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    model = Product
+    template_name = 'my_app/product_delete.html'
+    success_url = reverse_lazy('my_app:catalog')
+    permission_required = 'my_app.can_delete_product'
+    login_url = reverse_lazy('users:login')
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, 'Товар успешно удален!')
+        return super().delete(request, *args, **kwargs)
+
+
+class ProductPublishView(LoginRequiredMixin, UpdateView):
+    model = Product
+    fields = ['is_published']
+    template_name = 'my_app/product_publish.html'
+    success_url = reverse_lazy('my_app:catalog')
+
+    def form_valid(self, form):
+        form.instance.is_published = True
+        messages.success(self.request, 'Товар успешно опубликован!')
+        return super().form_valid(form)
