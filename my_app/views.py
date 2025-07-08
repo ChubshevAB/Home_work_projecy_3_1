@@ -6,6 +6,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.urls import reverse_lazy
 from django.contrib import messages
 from .forms import CreateProduct
+from .services import get_products_by_category
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
+from django.core.cache import cache
 
 
 class ChangeProduct(LoginRequiredMixin, View):
@@ -33,6 +37,16 @@ class CatalogListView(LoginRequiredMixin, ListView):
     context_object_name = "products"
     login_url = reverse_lazy('users:login')
 
+    def get_queryset(self):
+        queryset = cache.get('products_queryset')
+
+        if not queryset:
+            queryset = super().get_queryset()
+            cache.set('products_queryset', queryset, 900)
+        return queryset
+
+
+@method_decorator(cache_page(900), name='dispatch')
 class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
     template_name = 'my_app/product_detail.html'
@@ -102,3 +116,25 @@ class ProductPublishView(LoginRequiredMixin, UpdateView):
         form.instance.is_published = True
         messages.success(self.request, 'Товар успешно опубликован!')
         return super().form_valid(form)
+
+
+class ProductsByCategoryView(LoginRequiredMixin, ListView):
+    template_name = 'my_app/products_by_category.html'
+    context_object_name = 'products'
+    login_url = reverse_lazy('users:login')
+
+    def get_queryset(self):
+        category_id = self.kwargs['category_id']
+        return get_products_by_category(category_id)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = get_object_or_404(Category, id=self.kwargs['category_id'])
+        return context
+
+
+class CategoriesListView(LoginRequiredMixin, ListView):
+    model = Category
+    template_name = 'my_app/categories_list.html'
+    context_object_name = 'categories'
+    login_url = reverse_lazy('users:login')

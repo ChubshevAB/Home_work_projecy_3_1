@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.urls import reverse
 
 
 class Category(models.Model):
@@ -14,6 +15,12 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('my_app:products_by_category', kwargs={'category_id': self.id})
+
+    @property
+    def published_products_count(self):
+        return self.products.filter(is_published=True).count()
 
 class Product(models.Model):
     name = models.CharField(max_length=150, verbose_name='Наименование',)

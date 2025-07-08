@@ -1,0 +1,80 @@
+{% extends 'my_app/base.html' %}
+{% load static %}
+
+{% block title %}Категории товаров{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="page-header mb-4">
+                <h1 class="display-4 mb-0">Категории товаров</h1>
+            </div>
+
+            {% if categories %}
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                {% for category in categories %}
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0">
+                        <div class="card-header bg-dark text-white py-3">
+                            <h3 class="text-center mb-0">{{ category.name }}</h3>
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            {% if category.description %}
+                            <p class="card-text">{{ category.description|truncatechars:100 }}</p>
+                            {% else %}
+                            <p class="card-text text-muted">Описание отсутствует</p>
+                            {% endif %}
+
+                            <div class="mt-auto text-center">
+                                <a href="{{ category.get_absolute_url }}" class="btn btn-primary stretched-link">
+                                    <i class="bi bi-eye-fill me-2"></i>Просмотреть товары
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-light">
+                            <small class="text-muted">
+                                Товаров: {{ category.published_products_count }}
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="alert alert-info text-center">
+                <i class="bi bi-exclamation-circle-fill me-2"></i>
+                Категории пока не добавлены
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .card-header {
+        border-bottom: 2px solid var(--accent-color);
+    }
+
+    .stretched-link::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        content: "";
+    }
+</style>
+{% endblock %}
